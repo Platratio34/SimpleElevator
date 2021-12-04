@@ -1,0 +1,29 @@
+main: main.Plugin
+name: SimpleElevator
+version: 0.1-Dev1
+api-version: 1.17
+author: Platratio34
+commands:
+  elevator:
+    usage: /elevator <edit|add> <name> | /elevator <list|help> | /elevator make <name> | Edit session commands /elevator <floor> <y|name|icon> <value> | /elevator overall <param> <value> | /elevator <floor> add
+    aliases: [elev]
+permissions:
+  elevator.use:
+    description: Permission for elevator use
+    default: true
+  elevator.make:
+    description: make elevator controllers for existing elevator configs
+    default: op
+    children:
+  elevator.edit:
+    description: Make and edit elevator configs
+    default: op
+    children:
+      elevator.make: true
+  elevator.*:
+    description: Full use of Simple Elevators
+    default: op
+    children:
+      elevator.use: true
+      elevator.make: true
+      elevator.edit: true
