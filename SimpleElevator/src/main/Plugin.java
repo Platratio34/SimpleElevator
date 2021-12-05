@@ -37,8 +37,6 @@ public class Plugin extends JavaPlugin {
 	public Map<String, Elevator> eleavtors;
 	
 	public ElevatorCommands com;
-	
-//	private YamlConfiguration elvConfig;
 
 	@Override
 	public void onEnable() {
@@ -50,12 +48,12 @@ public class Plugin extends JavaPlugin {
 			e.printStackTrace();
 		}
 		pdf = this.getDescription();
-		reloadConfig();
+		reloadConfigFile();
 		if(pdf.getVersion().contains("-Dev")) {
 			log.warning("This is a dev build, things may not work properly!");
 		}
 		
-		eleavtors = new HashMap<String, Elevator>();
+//		eleavtors = new HashMap<String, Elevator>();
 		
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(new ElevatorEvent(this), this);
@@ -68,6 +66,7 @@ public class Plugin extends JavaPlugin {
 	public void onDisable() {
 		saveElevators();
 		saveConfig();
+		log2.print(config);
 		log2.close();
 	}
 	

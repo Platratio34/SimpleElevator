@@ -108,7 +108,7 @@ public class Elevator {
 		
 		public ConfigurationSection save(ConfigurationSection cS) {
 			cS.set("name", name);
-			cS.set("icon", icon);
+			cS.set("icon", icon.toString());
 			cS.set("y", y);
 			return cS;
 		}
