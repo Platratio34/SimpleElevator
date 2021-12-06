@@ -180,7 +180,31 @@ public class Plugin extends JavaPlugin {
 			PluginManager pm = Bukkit.getServer().getPluginManager();
 			pm.registerEvents(gui, this);
 			gui.openInventory(p);
+		} else {
+			log.warning("Somthing went wrong attempting to use an elevator, veiw plugin error log for details");
+			File f = new File(dataFolder, "ElevatorErrorLog_" + getDT() + ".log");
+			PrintStream ps;
+			try {
+				ps = new PrintStream(f);
+				ps.println(getDT());
+				ps.println("Error finding elevator");
+				ps.println("Id: '" + id + "'");
+				ps.println("Elevators: ");
+				for(String key : eleavtors.keySet()) {
+					ps.print(key + " | ");
+				}
+				ps.println();
+				ps.close();
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
 		}
+	}
+	
+	public String getDT() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		return dtf.format(now);  
 	}
 
 	public Elevator getElevator(String id) {

@@ -47,6 +47,7 @@ public class ElevatorCommands implements CommandExecutor {
 				if((p == null && consSession != null) || sessions.containsKey(p)) {
 					if(!pEdit) {
 						sender.sendMessage(ChatColor.RED + "You do not have permesion to edit elevators");
+						sessions.remove(p);
 						return false;
 					}
 					Elevator e = null;
@@ -79,8 +80,8 @@ public class ElevatorCommands implements CommandExecutor {
 								for(int i = 2 ; i < args.length; i++) {
 									name += args[i] + ((i+1<args.length)?" ":"");
 								}
-								e.setFloorName(args[0], args[2]);
-								sender.sendMessage("Floor: " + args[0] + " name set to " + args[2]);
+								e.setFloorName(args[0], name);
+								sender.sendMessage("Floor: " + args[0] + " name set to " + e.getFloorName(args[0]));
 								return true;
 							} else if(args[1].equals("icon")) {
 								Material m = Material.getMaterial(args[2]);
@@ -99,7 +100,7 @@ public class ElevatorCommands implements CommandExecutor {
 							sender.sendMessage(ChatColor.RED + "Invalid number of arguments");
 							return false;
 						}
-					} else if(args[0].equals("edit")) {
+					} else if(args[0].equals("exit")) {
 						if(p == null) {
 							consSession = null;
 						} else {
@@ -200,6 +201,28 @@ public class ElevatorCommands implements CommandExecutor {
 						}
 						plugin.eleavtors.put(args[1], new Elevator(plugin));
 						sender.sendMessage("Added elevator " + args[1]);
+						return true;
+					} else if(args[0].equals("help")) {
+						if(!(pEdit || pMake)) {
+							sender.sendMessage(ChatColor.RED + "You do not have permesion to use elevator commands");
+							return false;
+						}
+						sender.sendMessage(ChatColor.GREEN + "Showing help for Simple Elevators");
+						if(pEdit) {
+							sender.sendMessage("To make a new elevator run: " + ChatColor.DARK_BLUE + "/elev add <name>");
+							sender.sendMessage("To start and edit session run: " + ChatColor.DARK_BLUE +"/elev edit <name>");
+							sender.sendMessage("While in an edit session:");
+							sender.sendMessage("\tTo add a new floor run: " + ChatColor.DARK_BLUE + "/elev <floor> add");
+							sender.sendMessage("\tTo set the y level of a floor run: " + ChatColor.DARK_BLUE + "/elev <floor> y <level>");
+							sender.sendMessage("\tTo set the name of a floor run: " + ChatColor.DARK_BLUE + "/elev <floor> name <name>");
+							sender.sendMessage("\tTo set the icon for a floor run: " + ChatColor.DARK_BLUE + "/elev <floor> icon <icon>");
+							sender.sendMessage("\tTo exit an edit session run: " + ChatColor.DARK_BLUE + "/elev exit");
+						}
+						if(pMake) {
+							sender.sendMessage("To set a sign as a controller for an elevator run: " + ChatColor.DARK_BLUE + "/elev make <elevator>");
+							sender.sendMessage("To unset a sign as a controller break it");
+						}
+						sender.sendMessage("To veiw a list of all elevators run: " + ChatColor.DARK_BLUE + "/elev list");
 						return true;
 					} else {
 						sender.sendMessage(ChatColor.RED + "Invalid first argument");

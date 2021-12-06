@@ -5,7 +5,7 @@ api-version: 1.17
 author: Platratio34
 commands:
   elevator:
-    usage: /elevator <edit|add> <name> | /elevator <list|help> | /elevator make <name> | Edit session commands /elevator <floor> <y|name|icon> <value> | /elevator overall <param> <value> | /elevator <floor> add
+    usage: /elevator <edit|add> <name> | /elevator <list|help> | /elevator make <name> | Edit session commands /elevator <floor> <y|name|icon> <value> | /elevator overall <param> <value> | /elevator <floor> add | /elevator exit
     aliases: [elev]
 permissions:
   elevator.use:

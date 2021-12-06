@@ -51,6 +51,7 @@ private Plugin plugin;
 				Elevator e = plugin.com.getSession(p);
 				if(args.length == 1) {
 					l.add("overall");
+					l.add("exit");
 					for(String key : e.getFloors()) {
 						l.add(key);
 					}
@@ -71,16 +72,17 @@ private Plugin plugin;
 						}
 					}
 				}
-			}
-			if(args.length == 1) {
-				l.add("edit");
-				l.add("add");
-				l.add("list");
-				l.add("help");
-			} else if(args.length == 2) {
-				if(args[0].equals("edit")) {
-					for(String key : plugin.eleavtors.keySet()) {
-						l.add(key);
+			} else {
+				if(args.length == 1) {
+					l.add("edit");
+					l.add("add");
+					l.add("list");
+					l.add("help");
+				} else if(args.length == 2) {
+					if(args[0].equals("edit")) {
+						for(String key : plugin.eleavtors.keySet()) {
+							l.add(key);
+						}
 					}
 				}
 			}
