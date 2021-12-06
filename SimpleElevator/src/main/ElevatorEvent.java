@@ -32,11 +32,11 @@ public class ElevatorEvent implements Listener {
                 Sign sign = (Sign) event.getClickedBlock().getState();
                 PersistentDataContainer cont =  sign.getPersistentDataContainer();
                 if(cont.has(key, PersistentDataType.STRING)) {
-                	System.out.println("sign is controller");
+//                	System.out.println("sign is controller");
                 	String id = cont.get(key, PersistentDataType.STRING);
                 	plugin.elevatorUse(p, id);
                 } else {
-                	System.out.println(cont.getKeys());
+//                	System.out.println(cont.getKeys());
                 }
             }
         }
