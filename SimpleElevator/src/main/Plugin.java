@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -169,6 +171,12 @@ public class Plugin extends JavaPlugin {
 					String floor = inv.getItem(slot).getItemMeta().getLore().get(0);
 					Location loc = p.getLocation();
 					loc.setY(elv.getFloorY(floor));
+					if(p.getWorld().getBlockAt(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()).getType().isOccluding()) {
+						p.sendMessage("Floor obstructed"); return;}
+					if(p.getWorld().getBlockAt(loc.getBlockX(), loc.getBlockY()+1, loc.getBlockZ()).getType().isOccluding()) {
+						p.sendMessage("Floor obstructed"); return;}
+					if(!p.getWorld().getBlockAt(loc.getBlockX(), loc.getBlockY()-1, loc.getBlockZ()).getType().isSolid()) {
+						p.sendMessage("No Floor block"); return;}
 					p.teleport(loc);
 					p.sendMessage("Now on floor " + floor + " | " + elv.getFloorName(floor));
 				}

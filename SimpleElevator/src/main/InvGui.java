@@ -19,7 +19,9 @@ public class InvGui implements Listener {
     private final Inventory inv;
     
     public InvGuiEvent event;
-
+    public boolean stopPickup = true;
+    public boolean exitOnEvent = true;
+    
     public InvGui(InvGuiEvent event, String name, int size) {
         // Create a new inventory, with no owner (as this isn't a real inventory), a size of nine, called example
         System.out.println(size);
@@ -70,8 +72,10 @@ public class InvGui implements Listener {
     @EventHandler
     public void onInventoryClick(final InventoryClickEvent e) {
         if (e.getInventory() != inv) return;
-
-        e.setCancelled(true);
+        
+        if(stopPickup) {
+        	e.setCancelled(true);
+        }
 
         final ItemStack clickedItem = e.getCurrentItem();
 

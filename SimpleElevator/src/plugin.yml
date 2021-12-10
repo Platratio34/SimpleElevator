@@ -1,6 +1,6 @@
 main: main.Plugin
 name: SimpleElevator
-version: 0.2
+version: 0.3-Dev
 api-version: 1.17
 author: Platratio34
 website: https://github.com/Platratio34/SimpleElevator

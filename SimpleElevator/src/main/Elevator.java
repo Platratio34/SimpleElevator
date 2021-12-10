@@ -27,11 +27,14 @@ public class Elevator {
 		if(cS.contains("sorted")) {
 			Object[] oA = cS.getIntegerList("sorted").toArray();
 			sFloors = new int[oA.length];
-			System.arraycopy(oA, 0, sFloors, 0, oA.length);
+			for(int i = 0; i < oA.length; i++) {
+				sFloors[i] = (int)oA[i];
+			}
+//			System.arraycopy(oA, 0, sFloors, 0, oA.length);
 		}
 		this.plugin = plugin;
 		for(String key : cS.getKeys(false)) {
-			if(!key.equals("overall")) {
+			if(!(key.equals("overall")||key.equals("sorted"))) {
 				if(sFloors.length == 0) {
 					
 				} else {
