@@ -145,9 +145,9 @@ public class Plugin extends JavaPlugin {
 			}
 		}
 		
+		eleavtors = new HashMap<String, Elevator>();
 		if(config.contains("elevators")) {
 			ConfigurationSection eCS = config.getConfigurationSection("elevators");
-			eleavtors = new HashMap<String, Elevator>();
 			for(String key : eCS.getKeys(false)) {
 				eleavtors.put(key, new Elevator(this, eCS.getConfigurationSection(key)));
 			}

@@ -11,6 +11,7 @@ import org.bukkit.configuration.ConfigurationSection;
 public class Elevator {
 	
 	private Map<String, Floor> floors;
+	@SuppressWarnings("unused")
 	private Plugin plugin;
 	public int[] sFloors;
 	
