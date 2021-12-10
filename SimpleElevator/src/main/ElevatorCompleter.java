@@ -30,23 +30,8 @@ private Plugin plugin;
 		if(!(pMake || pEdit)) {
 			return l;
 		}
-		if(pMake) {
-			if(args.length == 1) {
-				l.add("make");
-				if(!pEdit) {
-					l.add("list");
-					l.add("help");
-				}
-			} else if(args.length == 2) {
-				if(args[0].equals("make")) {
-					for(String key : plugin.eleavtors.keySet()) {
-						l.add(key);
-					}
-				}
-			}
-		}
+		boolean s = plugin.com.hasSession(p);
 		if(pEdit) {
-			boolean s = plugin.com.hasSession(p);
 			if(s) {
 				Elevator e = plugin.com.getSession(p);
 				if(args.length == 1) {
@@ -83,6 +68,21 @@ private Plugin plugin;
 						for(String key : plugin.eleavtors.keySet()) {
 							l.add(key);
 						}
+					}
+				}
+			}
+		}
+		if(!s && pMake) {
+			if(args.length == 1) {
+				l.add("make");
+				if(!pEdit) {
+					l.add("list");
+					l.add("help");
+				}
+			} else if(args.length == 2) {
+				if(args[0].equals("make")) {
+					for(String key : plugin.eleavtors.keySet()) {
+						l.add(key);
 					}
 				}
 			}
