@@ -110,6 +110,12 @@ public class ElevatorCommands implements CommandExecutor {
 						return true;
 					} else {
 						if(args.length == 2) {
+							try {
+								int f = Integer.parseInt(args[0]);
+							} catch (NumberFormatException n) {
+								sender.sendMessage(ChatColor.RED + "Floor number must be a number");
+								return false;
+							}
 							if(args[1].equals("add")) {
 								e.addFloor(args[0], p!=null?(float)p.getLocation().getY():63);
 								sender.sendMessage("Floor " + args[0] + " added at current height");

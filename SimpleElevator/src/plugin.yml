@@ -1,12 +1,13 @@
 main: main.Plugin
 name: SimpleElevator
-version: 0.1-Dev2
+version: 0.2-Dev
 api-version: 1.17
 author: Platratio34
 website: https://github.com/Platratio34/SimpleElevator
 commands:
   elevator:
-    usage: /elevator <edit|add> <name> | /elevator <list|help> | /elevator make <name> | Edit session commands /elevator <floor> <y|name|icon> <value> | /elevator overall <param> <value> | /elevator <floor> add | /elevator exit
+    usage: /elevator <edit|add> <name> | /elevator <list|help> | /elevator make <name> | 
+      Edit session commands /elevator <floor> <y|name|icon> <value> | /elevator overall <param> <value> | /elevator <floor> add | /elevator exit
     aliases: [elev]
     permission: [elevator.make, elevator.edit]
 permissions:

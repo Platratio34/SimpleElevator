@@ -156,7 +156,6 @@ public class Plugin extends JavaPlugin {
 	}
 
 	public void elevatorUse(Player p, String id) {
-		// TODO implement movement
 		if(!p.hasPermission("elevators.use")) {
 			p.sendMessage(ChatColor.RED + "You do not have permession to use elevators");
 			return;
@@ -174,7 +173,8 @@ public class Plugin extends JavaPlugin {
 					p.sendMessage("Now on floor " + floor + " | " + elv.getFloorName(floor));
 				}
 			},"Elevator", elv.getFloors().size());
-			for(String floor : elv.getFloors()) {
+			for(int i = 0; i < elv.sFloors.length; i++) {
+				String floor = elv.sFloors[i] + "";
 				gui.addItem(elv.getFloorIcon(floor), elv.getFloorName(floor), floor);
 			}
 			PluginManager pm = Bukkit.getServer().getPluginManager();
@@ -202,9 +202,8 @@ public class Plugin extends JavaPlugin {
 	}
 	
 	public String getDT() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");  
-		LocalDateTime now = LocalDateTime.now();  
-		return dtf.format(now);  
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
+		return dtf.format(LocalDateTime.now());
 	}
 
 	public Elevator getElevator(String id) {

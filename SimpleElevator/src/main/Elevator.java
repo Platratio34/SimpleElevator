@@ -3,6 +3,7 @@ package main;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -11,25 +12,68 @@ public class Elevator {
 	
 	private Map<String, Floor> floors;
 	private Plugin plugin;
+	public int[] sFloors;
 	
 	public Elevator(Plugin plugin) {
 		floors = new HashMap<String, Floor>();
+		sFloors = new int[0];
 		this.plugin = plugin;
 	}
 	
 	public Elevator(Plugin plugin, ConfigurationSection cS) {
 		floors = new HashMap<String, Floor>();
+		sFloors = new int[0];
+		if(cS.contains("sorted")) {
+			Object[] oA = cS.getIntegerList("sorted").toArray();
+			sFloors = new int[oA.length];
+			System.arraycopy(oA, 0, sFloors, 0, oA.length);
+		}
 		this.plugin = plugin;
 		for(String key : cS.getKeys(false)) {
 			if(!key.equals("overall")) {
-				floors.put(key, new Floor(cS.getConfigurationSection(key)));
+				if(sFloors.length == 0) {
+					
+				} else {
+					floors.put(key, new Floor(cS.getConfigurationSection(key)));
+				}
 			}
 		}
 	}
 	
 	public boolean addFloor(String floor, float z) {
+		return addFloor(floor, new Floor(floor, z));
+	}
+		
+	public boolean addFloor(String floor, Floor f) {
 		if(!floors.containsKey(floor)) {
-			floors.put(floor, new Floor(floor, z));
+			int fl = 0;
+			try {
+				fl = Integer.parseInt(floor);
+			} catch(NumberFormatException e) {
+				return false;
+			}
+			floors.put(floor, f);
+			if(sFloors.length == 0) {
+				sFloors = new int[] {fl};
+			} else {
+				int[] f2 = new int[sFloors.length + 1];
+				boolean o = false;
+				for(int i = 0; i < sFloors.length; i++) {
+					if(sFloors[i] < fl) {
+						f2[i]=sFloors[i];
+					} else {
+						if(!o) {
+							f2[i] = fl;
+							o=true;
+						}
+						f2[i+1]=sFloors[i];
+					}
+				}
+				if(!o) {
+					f2[f2.length-1] = fl;
+				}
+				sFloors = f2;
+			}
 			return true;
 		}
 		return false;
@@ -120,6 +164,7 @@ public class Elevator {
 	}
 
 	public ConfigurationSection save(ConfigurationSection cS) {
+		cS.set("sorted", sFloors);
 		for(String floor : floors.keySet()) {
 			cS.createSection(floor);
 			floors.get(floor).save(cS.getConfigurationSection(floor));
