@@ -39,13 +39,15 @@ public class Plugin extends JavaPlugin {
 	public Map<String, Elevator> eleavtors;
 	
 	public ElevatorCommands com;
+	
+	public boolean debug = false;
 
 	@Override
 	public void onEnable() {
 		dataFolder = getDataFolder();
 		log = super.getLogger();
 		try {
-			log2 = new PrintStream(new File(dataFolder + "log.log"));
+			log2 = new PrintStream(new File(dataFolder + "/log.log"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -68,7 +70,7 @@ public class Plugin extends JavaPlugin {
 	public void onDisable() {
 		saveElevators();
 		saveConfig();
-		log2.print(config);
+		debugLog(config.toString());
 		log2.close();
 	}
 	
@@ -89,6 +91,10 @@ public class Plugin extends JavaPlugin {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now();  
 		log2.println(dtf.format(now) + ": " + msg);  
+	}
+	
+	public void debugLog(String msg) {
+		if(debug) log(msg);
 	}
 	
 	public void reloadConfigFile() {
